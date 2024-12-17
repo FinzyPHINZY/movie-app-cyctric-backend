@@ -4,15 +4,15 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    required: true,
+    required: [true, 'Please provide an email'],
   },
   passwordHash: {
     type: String,
-    required: true,
+    required: [true, 'Please provide a password'],
   },
   name: {
     type: String,
-    required: true,
+    required: [true, 'Please provide a name'],
   },
   movies: [
     {

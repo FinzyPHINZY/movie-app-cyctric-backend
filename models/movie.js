@@ -4,7 +4,7 @@ require('dotenv').config();
 const movieSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
+    required: [true, 'Please provide a title'],
   },
   publishYear: {
     type: Number,
