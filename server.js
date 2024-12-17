@@ -5,10 +5,14 @@ const compression = require('compression');
 const helmet = require('helmet');
 const PORT = process.env.PORT || 7000;
 const connectDB = require('./config/database');
+const { tokenExtractor } = require('./middlewares/auth');
+const userRoutes = require('./routes/user');
 
 require('dotenv').config();
 
 const app = express();
+
+connectDB();
 
 morgan.token('req-body', (req) => {
   return req.method === 'POST' ? JSON.stringify(req.body) : '';
@@ -26,12 +30,13 @@ app.use(cors());
 app.use(helmet());
 app.use(compression());
 app.use(morgan(customFormat));
-
-connectDB();
+app.use(tokenExtractor);
 
 app.get('/', (req, res) => {
-  res.send('hello boluwatife');
+  res.send('hello Cytric');
 });
+
+app.use('/api/user', userRoutes);
 
 app.get('/health', (req, res) => {
   res.status(200).json({

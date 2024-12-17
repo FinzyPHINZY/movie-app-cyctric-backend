@@ -11,6 +11,7 @@
   "author": "Boluwatife Adeyemi",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "cloudinary": "^2.5.1",
     "compression": "^1.7.5",
     "cors": "^2.8.5",
