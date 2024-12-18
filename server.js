@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 7000;
 const connectDB = require('./config/database');
 const { tokenExtractor } = require('./middlewares/auth');
 const userRoutes = require('./routes/user');
+const movieRoutes = require('./routes/movie');
 
 require('dotenv').config();
 
@@ -37,6 +38,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/user', userRoutes);
+app.use('/api/movies', movieRoutes);
 
 app.get('/health', (req, res) => {
   res.status(200).json({
