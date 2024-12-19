@@ -59,12 +59,12 @@ const signup = async (req, res) => {
   try {
     const { name, password, email } = req.body;
 
-    const userExists = await User.findOne({ email });
-    if (!userExists) {
-      return res
-        .status(409)
-        .json({ success: false, message: 'User already exists' });
-    }
+    // const userExists = await User.findOne({ email });
+    // if (!userExists) {
+    //   return res
+    //     .status(409)
+    //     .json({ success: false, message: 'User already exists' });
+    // }
 
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);

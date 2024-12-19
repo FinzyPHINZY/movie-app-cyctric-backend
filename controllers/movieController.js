@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator');
+const User = require('../models/user');
 const Movie = require('../models/movie');
 
 const getMovie = async (req, res) => {
@@ -75,12 +76,6 @@ const addMovie = async (req, res) => {
     }
 
     const posterUrl = req.file ? req.file.path : undefined;
-    if (!posterUrl) {
-      return res.status(400).json({
-        success: false,
-        message: 'Poster image upload failed',
-      });
-    }
 
     const newMovie = new Movie({
       title,
@@ -90,6 +85,11 @@ const addMovie = async (req, res) => {
     });
 
     const savedMovie = await newMovie.save();
+
+    const userId = req.user.id;
+    await User.findByIdAndUpdate(userId, {
+      $push: { movies: savedMovie._id },
+    });
 
     return res.status(201).json({
       success: true,
